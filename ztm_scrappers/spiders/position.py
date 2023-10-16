@@ -1,6 +1,8 @@
 import scrapy
 import json
+import datetime
 
+from ztm_scrappers.date_converter import convert_datetime, convert_data
 
 class PositionSpider(scrapy.Spider):
     name = "positions"
@@ -11,8 +13,9 @@ class PositionSpider(scrapy.Spider):
         vehicles = json_data["vehicles"]
 
         for vehicle in vehicles:
+
             item = {
-                "generated": vehicle['generated'],
+                "generated": convert_datetime(vehicle['generated']),
                 "routeShortName": vehicle["routeShortName"],
                 "tripId": vehicle["tripId"],
                 "headsign": vehicle["headsign"],
@@ -22,7 +25,7 @@ class PositionSpider(scrapy.Spider):
                 "speed": vehicle["speed"],
                 "direction": vehicle["direction"],
                 "delay": vehicle["delay"],
-                "scheduledTripStartTime": vehicle["scheduledTripStartTime"],
+                "scheduledTripStartTime": convert_data(vehicle["scheduledTripStartTime"]),
                 "lat": vehicle["lat"],
                 "lon": vehicle["lon"],
                 "gpsQuality": vehicle["gpsQuality"],

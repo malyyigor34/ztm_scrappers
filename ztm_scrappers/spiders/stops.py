@@ -4,31 +4,31 @@
 
 import scrapy
 import json
-
+from ztm_scrappers.date_converter import convert_datetime, convert_data
 
 class StopsSpider(scrapy.Spider):
-    name = "json_spider"
+    name = "stops"
     start_urls = ['https://ckan.multimediagdansk.pl/dataset/c24aa637-3619-4dc2-a171-a23eec8f2172/resource/4c4025f0-01bf-41f7-a39f-d156d201b82b/download/stops.json']  # Replace with the actual JSON API URL
 
     def parse(self, response):
         data = json.loads(response.text)
 
         for date, date_data in data.items():
-            last_update = date_data.get("lastUpdate")
+            last_update = convert_datetime(date_data.get("lastUpdate"))
             stops = date_data.get("stops")
 
             if stops:
                 for stop in stops:
                     stop_data = {
                         "lastUpdate": last_update,
-                        "date": date,
+                        "date": convert_data(date),
                         "stopId": stop.get("stopId"),
                         "stopCode": stop.get("stopCode"),
                         "stopName": stop.get("stopName"),
                         "stopShortName": stop.get("stopShortName"),
                         "stopDesc": stop.get("stopDesc"),
                         "subName": stop.get("subName"),
-                        "stopDate": stop.get("date"),
+                        "stopDate": convert_data(stop.get("date")),
                         "zoneId": stop.get("zoneId"),
                         "zoneName": stop.get("zoneName"),
                         "virtual": stop.get("virtual"),
@@ -36,7 +36,7 @@ class StopsSpider(scrapy.Spider):
                         "depot": stop.get("depot"),
                         "ticketZoneBorder": stop.get("ticketZoneBorder"),
                         "onDemand": stop.get("onDemand"),
-                        "activationDate": stop.get("activationDate"),
+                        "activationDate": convert_data(stop.get("activationDate")),
                         "stopLat": stop.get("stopLat"),
                         "stopLon": stop.get("stopLon"),
                         "stopUrl": stop.get("stopUrl"),

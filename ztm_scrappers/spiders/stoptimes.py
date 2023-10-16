@@ -1,9 +1,10 @@
 import scrapy
 import json
+from ztm_scrappers.date_converter import convert_datetime, convert_data
 
 
 class LinkSpider(scrapy.Spider):
-    name = "link_spider"
+    name = "stoptimes"
     api_url = 'https://ckan.multimediagdansk.pl/dataset/c24aa637-3619-4dc2-a171-a23eec8f2172/resource/a023ceb0-8085-45f6-8261-02e6fcba7971/download/stoptimes.json'  # Replace with the actual API URL
 
     def start_requests(self):
@@ -18,12 +19,11 @@ class LinkSpider(scrapy.Spider):
 
     def parse(self, response):
         data = json.loads(response.text)
-        last_update = data.get("lastUpdate")
+        last_update = convert_datetime(data.get("lastUpdate"))
         stop_times = data.get("stopTimes")
 
         if stop_times:
             for stop_time in stop_times:
-                # Create a dictionary to hold all the attributes for each stop_time
                 stop_time_data = {
                     "lastUpdate": last_update,
                     "routeId": stop_time.get("routeId"),
@@ -34,7 +34,7 @@ class LinkSpider(scrapy.Spider):
                     "departureTime": stop_time.get("departureTime"),
                     "stopId": stop_time.get("stopId"),
                     "stopSequence": stop_time.get("stopSequence"),
-                    "date": stop_time.get("date"),
+                    "date": convert_data(stop_time.get("date")),
                     "variantId": stop_time.get("variantId"),
                     "noteSymbol": stop_time.get("noteSymbol"),
                     "noteDescription": stop_time.get("noteDescription"),

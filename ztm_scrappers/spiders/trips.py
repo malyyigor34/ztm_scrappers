@@ -2,6 +2,7 @@
 
 import scrapy
 import json
+from ztm_scrappers.date_converter import convert_data, convert_datetime
 
 
 class TripsSpider(scrapy.Spider):
@@ -18,14 +19,14 @@ class TripsSpider(scrapy.Spider):
             if trips:
                 for trip in trips:
                     trip_data = {
-                        "lastUpdate": last_update,
+                        "lastUpdate": convert_datetime(last_update),
                         "date": date,
                         "tripId": trip.get("id"),
                         "routeId": trip.get("routeId"),
                         "tripHeadsign": trip.get("tripHeadsign"),
                         "tripShortName": trip.get("tripShortName"),
                         "directionId": trip.get("directionId"),
-                        "activationDate": trip.get("activationDate"),
+                        "activationDate": convert_data(trip.get("activationDate")),
                         "type": trip.get("type"),
                     }
                     yield trip_data
