@@ -4,6 +4,7 @@ import datetime
 
 from ztm_scrappers.date_converter import convert_datetime, convert_data
 
+
 class PositionSpider(scrapy.Spider):
     name = "positions"
     start_urls= ['https://ckan2.multimediagdansk.pl/gpsPositions?v=2']
