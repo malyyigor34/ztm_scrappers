@@ -91,3 +91,12 @@ ROBOTSTXT_OBEY = True
 REQUEST_FINGERPRINTER_IMPLEMENTATION = "2.7"
 TWISTED_REACTOR = "twisted.internet.asyncioreactor.AsyncioSelectorReactor"
 FEED_EXPORT_ENCODING = "utf-8"
+
+
+USER_AGENT='Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/61.0.3163.100 Safari/537.36'
+ITEM_PIPELINES = {'ztm_scrappers.pipelines.MongoDBPipeline': 100}
+
+
+MONGO_HOST = 'localhost'
+MONGO_PORT = 27017
+MONGO_DB_NAME = 'ztm_data'

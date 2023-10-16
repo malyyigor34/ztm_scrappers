@@ -17,6 +17,8 @@ process = CrawlerProcess(
     }
 )
 
+#TODO pipeline for mongo db
+
 #process.crawl(PositionSpider)
 process.crawl(StopsSpider)
 
