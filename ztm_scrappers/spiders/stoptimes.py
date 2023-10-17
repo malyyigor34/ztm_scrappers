@@ -3,7 +3,7 @@ import json
 from ztm_scrappers.date_converter import convert_datetime, convert_data
 
 
-class LinkSpider(scrapy.Spider):
+class StopsSpider(scrapy.Spider):
     name = "stoptimes"
     api_url = 'https://ckan.multimediagdansk.pl/dataset/c24aa637-3619-4dc2-a171-a23eec8f2172/resource/a023ceb0-8085-45f6-8261-02e6fcba7971/download/stoptimes.json'  # Replace with the actual API URL
 

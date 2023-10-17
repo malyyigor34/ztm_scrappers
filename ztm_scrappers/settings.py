@@ -18,8 +18,9 @@ NEWSPIDER_MODULE = "ztm_scrappers.spiders"
 
 # Obey robots.txt rules
 ROBOTSTXT_OBEY = True
+import logging
 
-# Configure maximum concurrent requests performed by Scrapy (default: 16)
+LOG_LEVEL = logging.WARNING
 #CONCURRENT_REQUESTS = 32
 
 # Configure a delay for requests for the same website (default: 0)
@@ -96,5 +97,5 @@ FEED_EXPORT_ENCODING = "utf-8"
 USER_AGENT='Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/61.0.3163.100 Safari/537.36'
 ITEM_PIPELINES = {'ztm_scrappers.pipelines.MongoDBPipeline': 100}
 
-MONGO = 'mongodb://root:example@localhost:27017'
+MONGO = 'mongodb://root:example@mongo:27017'
 MONGO_DB_NAME = 'ztm_data'

@@ -1,25 +1,38 @@
-import scrapy
-from scrapy.crawler import CrawlerProcess
+import subprocess
+
+import threading
+import time
+import schedule
 
 
-import scrapy
+spider_name = ['departures', 'positions', 'routes', 'stops', 'stops_in_trips', 'trips']
 
-from ztm_scrappers.spiders.position import PositionSpider
-#from ztm_scrappers.spiders.departures import DepartureSpider
-from ztm_scrappers.spiders.stoptimes import LinkSpider
-from ztm_scrappers.spiders.routes import RoutesSpider
-from ztm_scrappers.spiders.trips import TripsSpider
-from ztm_scrappers.spiders.stops import StopsSpider
 
-process = CrawlerProcess(
-    settings={
+def create_index():
+    pass
 
-    }
-)
 
-#TODO pipeline for mongo db
+def start_spider(spider_name: str):
+    try:
+        command = f'scrapy crawl {spider_name}'
+        subprocess.run(command, shell=True, check=True)
+    except subprocess.CalledProcessError as e:
+        print(f"Error running Scrapy spider: {e}")
 
-#process.crawl(PositionSpider)
-process.crawl(StopsSpider)
 
-process.start()
+def run_threaded(job_func):
+    job_thread = threading.Thread(target=job_func)
+    job_thread.start()
+
+
+schedule.every(3).seconds.do(run_threaded, lambda: start_spider('positions'))
+schedule.every(3).seconds.do(run_threaded, lambda: start_spider('departures'))
+schedule.every(2).hours.do(run_threaded, lambda: start_spider('routes'))
+schedule.every(2).hours.do(run_threaded, lambda: start_spider('stops'))
+schedule.every(2).hours.do(run_threaded, lambda: start_spider('stops_in_trips'))
+schedule.every(2).hours.do(run_threaded, lambda: start_spider('trips'))
+
+
+while 1:
+    schedule.run_pending()
+    time.sleep(1)

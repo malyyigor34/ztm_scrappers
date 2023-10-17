@@ -26,10 +26,9 @@ class PositionSpider(scrapy.Spider):
                 "speed": vehicle["speed"],
                 "direction": vehicle["direction"],
                 "delay": vehicle["delay"],
-                "scheduledTripStartTime": convert_data(vehicle["scheduledTripStartTime"]),
+                "scheduledTripStartTime": convert_datetime(vehicle["scheduledTripStartTime"]),
                 "lat": vehicle["lat"],
                 "lon": vehicle["lon"],
                 "gpsQuality": vehicle["gpsQuality"],
             }
-            print(item)
             yield item
