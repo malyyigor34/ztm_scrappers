@@ -20,7 +20,7 @@ NEWSPIDER_MODULE = "ztm_scrappers.spiders"
 ROBOTSTXT_OBEY = True
 import logging
 
-LOG_LEVEL = logging.WARNING
+LOG_LEVEL = logging.DEBUG
 #CONCURRENT_REQUESTS = 32
 
 # Configure a delay for requests for the same website (default: 0)
