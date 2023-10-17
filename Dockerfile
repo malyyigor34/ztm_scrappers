@@ -14,7 +14,7 @@ ENV PYTHONUNBUFFERED 1
 
 RUN pip install --upgrade pip
 
-COPY . $DockerHOME
+COPY ztm_scrappers $DockerHOME
 RUN pip install -r requirements.txt
 
 
