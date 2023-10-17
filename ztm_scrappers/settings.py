@@ -97,5 +97,5 @@ FEED_EXPORT_ENCODING = "utf-8"
 USER_AGENT='Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/61.0.3163.100 Safari/537.36'
 ITEM_PIPELINES = {'ztm_scrappers.pipelines.MongoDBPipeline': 100}
 
-MONGO = 'mongodb://root:example@mongo:27017'
+MONGO = 'mongodb://root:343877@mongo:27017'
 MONGO_DB_NAME = 'ztm_data'
