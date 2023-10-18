@@ -1,11 +1,4 @@
-# Scrapy settings for ztm_scrappers project
-#
-# For simplicity, this file contains only settings considered important or
-# commonly used. You can find more settings consulting the documentation:
-#
-#     https://docs.scrapy.org/en/latest/topics/settings.html
-#     https://docs.scrapy.org/en/latest/topics/downloader-middleware.html
-#     https://docs.scrapy.org/en/latest/topics/spider-middleware.html
+import os
 
 BOT_NAME = "ztm_scrappers"
 
@@ -13,14 +6,12 @@ SPIDER_MODULES = ["ztm_scrappers.spiders"]
 NEWSPIDER_MODULE = "ztm_scrappers.spiders"
 
 
-# Crawl responsibly by identifying yourself (and your website) on the user-agent
-#USER_AGENT = "ztm_scrappers (+http://www.yourdomain.com)"
+USER_AGENT = "Open source project https://github.com/malyyigor34/ztm_scrappers/"
 
-# Obey robots.txt rules
 ROBOTSTXT_OBEY = True
 import logging
 
-LOG_LEVEL = logging.DEBUG
+LOG_LEVEL = logging.ERROR
 #CONCURRENT_REQUESTS = 32
 
 # Configure a delay for requests for the same website (default: 0)
@@ -35,7 +26,7 @@ LOG_LEVEL = logging.DEBUG
 #COOKIES_ENABLED = False
 
 # Disable Telnet Console (enabled by default)
-#TELNETCONSOLE_ENABLED = False
+TELNETCONSOLE_ENABLED = False
 
 # Override the default request headers:
 #DEFAULT_REQUEST_HEADERS = {
@@ -97,5 +88,5 @@ FEED_EXPORT_ENCODING = "utf-8"
 USER_AGENT='Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/61.0.3163.100 Safari/537.36'
 ITEM_PIPELINES = {'ztm_scrappers.pipelines.MongoDBPipeline': 100}
 
-MONGO = 'mongodb://root:343877@mongo:27017'
+MONGO = os.environ.get('MONGO_CONNECTION_STRING')
 MONGO_DB_NAME = 'ztm_data'

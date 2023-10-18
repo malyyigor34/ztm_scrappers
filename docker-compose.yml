@@ -1,8 +1,12 @@
-# Use root/example as user/password credentials
 version: '3.1'
 
 services:
-
+  ztm_scrapers:
+    image: ztm_scrapers
+    restart: always
+    environment:
+      MONGO_CONNECTION_STRING: mongodb://root:343877@mongo:27017
+  
   mongo:
     image: mongo
     restart: always
@@ -16,8 +20,8 @@ services:
     image: mongo-express
     restart: always
     ports:
-      - 8081:8081
+      - "8081:8081"
     environment:
       ME_CONFIG_MONGODB_ADMINUSERNAME: root
       ME_CONFIG_MONGODB_ADMINPASSWORD: 343877
-      ME_CONFIG_MONGODB_URL: mongodb://root:example@mongo:27017/
+      ME_CONFIG_MONGODB_URL: mongodb://root:343877@mongo:27017

@@ -2,7 +2,6 @@
 
 import scrapy
 import json
-import datetime
 
 from ztm_scrappers.date_converter import convert_datetime, convert_data
 

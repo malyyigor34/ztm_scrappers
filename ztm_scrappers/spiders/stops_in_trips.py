@@ -35,5 +35,3 @@ class StopsInTripSpider(scrapy.Spider):
                     }
 
                     yield stop_in_trip_data
-
-# Replace 'https://example.com/api/your-json-endpoint' with the actual JSON API URL.
