@@ -18,6 +18,6 @@ class MongoDBPipeline:
         try:
             self.db[spider.name].insert_one(item)
         except pymongo.errors.DuplicateKeyError:
-            print(f"Item {item} exists")
+            pass
         return item
 

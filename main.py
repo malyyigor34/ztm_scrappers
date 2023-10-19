@@ -5,7 +5,7 @@ import time
 import schedule
 import pymongo
 from ztm_scrappers.settings import MONGO, MONGO_DB_NAME
-spider_name = ['departures', 'positions', 'routes', 'stops', 'stops_in_trips', 'trips']
+spider_name = ['departures', 'positions', 'routes', 'stops', 'stops_in_trips', 'trips', 'stoptimes']
 
 
 def connect_to_db():
@@ -53,7 +53,6 @@ schedule.every(2).hours.do(run_threaded, lambda: start_spider('routes'))
 schedule.every(2).hours.do(run_threaded, lambda: start_spider('stops'))
 schedule.every(2).hours.do(run_threaded, lambda: start_spider('stops_in_trips'))
 schedule.every(2).hours.do(run_threaded, lambda: start_spider('trips'))
-
 
 create_index()
 
