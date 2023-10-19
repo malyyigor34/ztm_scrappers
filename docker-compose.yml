@@ -2,7 +2,7 @@ version: '3.1'
 
 services:
   ztm_scrapers:
-    image: ztm_scrapers
+    build: https://github.com/malyyigor34/ztm_scrappers.git
     restart: always
     environment:
       MONGO_CONNECTION_STRING: mongodb://root:343877@mongo:27017
@@ -15,6 +15,8 @@ services:
       MONGO_INITDB_ROOT_PASSWORD: 343877
     ports:
       - "27017:27017"
+    volumes:
+      - "/data/ztm_saver/ztm_data:/data/"
 
   mongo-express:
     image: mongo-express
