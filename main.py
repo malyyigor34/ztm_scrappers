@@ -5,7 +5,7 @@ import time
 import schedule
 import pymongo
 from ztm_scrappers.settings import MONGO, MONGO_DB_NAME
-spider_name = ['departures', 'positions', 'routes', 'stops', 'stops_in_trips', 'trips', 'stoptimes']
+spider_name = ['departures', 'positions', 'routes', 'stops', 'stops_in_trips', 'trips', 'stoptimes', 'route_points']
 
 
 def connect_to_db():
@@ -25,7 +25,8 @@ def create_index():
         'routes': ['lastUpdate', 'date', 'routeId', 'agencyId', 'routeShortName', 'routeLongName', 'activationDate'],
         'stops': ['lastUpdate', 'date', 'stopId', 'stopCode', 'stopName', 'stopDate', 'zoneId'],
         'stoptimes': ['lastUpdate', 'date', 'routeId', 'tripId', 'agencyId', 'stopId', 'departureTime', 'stopShortName',
-                      'variantId', 'arrivalTime', 'passenger']
+                      'variantId', 'arrivalTime', 'passenger'],
+        'route_points': ['date', 'routeId', 'tripId']
     }
 
     db = connect_to_db()
@@ -47,19 +48,25 @@ def run_threaded(job_func):
     job_thread.start()
 
 
-schedule.every(7).seconds.do(run_threaded, lambda: start_spider('positions'))
-schedule.every(25).seconds.do(run_threaded, lambda: start_spider('departures'))
-schedule.every(2).hours.do(run_threaded, lambda: start_spider('routes'))
-schedule.every(2).hours.do(run_threaded, lambda: start_spider('stops'))
-schedule.every(2).hours.do(run_threaded, lambda: start_spider('stops_in_trips'))
-schedule.every(2).hours.do(run_threaded, lambda: start_spider('trips'))
+def create_schedule():
+    schedule.every(7).seconds.do(run_threaded, lambda: start_spider('positions'))
+    schedule.every(25).seconds.do(run_threaded, lambda: start_spider('departures'))
+    schedule.every(2).hours.do(run_threaded, lambda: start_spider('routes'))
+    schedule.every(2).hours.do(run_threaded, lambda: start_spider('stops'))
+    schedule.every(2).hours.do(run_threaded, lambda: start_spider('stops_in_trips'))
+    schedule.every(2).hours.do(run_threaded, lambda: start_spider('trips'))
+    schedule.every(5).hours.do(run_threaded, lambda: start_spider('route_points'))
 
-create_index()
 
-#Run first time
-for spider in spider_name:
-    start_spider(spider)
+def main():
+    create_index()
+    #Run first time
+    for spider in spider_name:
+        start_spider(spider)
 
-while 1:
-    schedule.run_pending()
-    time.sleep(1)
+    while 1:
+        schedule.run_pending()
+        time.sleep(1)
+
+
+start_spider('route_points')
