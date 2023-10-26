@@ -60,6 +60,7 @@ def create_schedule():
 
 def main():
     create_index()
+    create_schedule()
     #Run first time
     for spider in spider_name:
         start_spider(spider)
@@ -69,4 +70,4 @@ def main():
         time.sleep(1)
 
 
-start_spider('route_points')
+main()
