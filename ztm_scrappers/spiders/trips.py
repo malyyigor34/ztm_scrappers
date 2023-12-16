@@ -21,7 +21,7 @@ class TripsSpider(scrapy.Spider):
                     trip_data = {
                         "lastUpdate": convert_datetime(last_update),
                         "date": date,
-                        "tripId": trip.get("id"),
+                        "tripId": trip.get("tripId"),
                         "routeId": trip.get("routeId"),
                         "tripHeadsign": trip.get("tripHeadsign"),
                         "tripShortName": trip.get("tripShortName"),
