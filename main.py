@@ -50,7 +50,6 @@ def run_threaded(job_func):
 
 def create_schedule():
     schedule.every(7).seconds.do(run_threaded, lambda: start_spider('positions'))
-    schedule.every(25).seconds.do(run_threaded, lambda: start_spider('departures'))
     schedule.every(2).hours.do(run_threaded, lambda: start_spider('routes'))
     schedule.every(2).hours.do(run_threaded, lambda: start_spider('stops'))
     schedule.every(2).hours.do(run_threaded, lambda: start_spider('stops_in_trips'))
